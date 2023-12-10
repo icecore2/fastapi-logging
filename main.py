@@ -20,6 +20,16 @@ app = FastAPI(
 
 logger.info('API is starting up')
 
+@app.post("/")
+async def api(request: Request):
+    logget.info(f"request.json()")
+    logget.debug(f"request.json()")
+    logget.trace(f"request.json()")
+    return JSONResponse(
+        status_code=status.HTTP_200_OK,
+        content=jsonable_encoder({"message": "OK"})
+    )
+
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
     idem = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
